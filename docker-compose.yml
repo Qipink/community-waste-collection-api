@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: community_waste_postgres
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-community_waste_db}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-community_waste_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    container_name: community_waste_api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: ${PORT:-8080}
+      DB_HOST: postgres
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_NAME: ${DB_NAME:-community_waste_db}
+      DB_PORT: 5432
+      UPLOAD_DIR: /app/uploads
+      RUN_SEED: ${RUN_SEED:-true}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-5}
+      GIN_MODE: release
+    ports:
+      - "${PORT:-8080}:${PORT:-8080}"
+    volumes:
+      - ./uploads:/app/uploads
+
+volumes:
+  pgdata:

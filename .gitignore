@@ -1,0 +1,11 @@
+.env
+uploads/*
+!uploads/.gitkeep
+!uploads/seed_bukti_*.jpg
+*.exe
+server
+app
+bin/
+coverage.out
+.idea/
+.vscode/
