@@ -81,7 +81,9 @@ Untuk keperluan review: aspek HTTP dapat dinilai melalui `handler`, sedangkan bu
 
 ## Daftar Endpoint
 
-Seluruh endpoint dapat diuji melalui koleksi Postman (`postman/collection.json`, 16 request berurutan dengan ID yang terhubung otomatis via chaining, mencakup 14 endpoint + 2 contoh khusus e-waste):
+Seluruh endpoint dapat diuji melalui koleksi Postman (`postman/collection.json`, 16 request berurutan dengan ID yang terhubung otomatis via chaining, mencakup 14 endpoint + 2 contoh khusus e-waste). Dokumentasi publiknya tersedia di:
+
+https://documenter.getpostman.com/view/44482161/2sBYHQ1Ncg
 
 * `POST /api/households`, `GET /api/households?page=&limit=`, `GET /api/households/:id`, `DELETE /api/households/:id`
 * `POST /api/pickups`, `GET /api/pickups?status=&household_id=`, `PUT /api/pickups/:id/schedule`, `PUT /api/pickups/:id/complete`, `PUT /api/pickups/:id/cancel`
